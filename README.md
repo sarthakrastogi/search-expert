@@ -85,6 +85,28 @@ print(result.fields)
 
 <br/>
 
+## Why hybrid search beats the alternatives
+
+| | Text-to-SQL | Pure vector search | Hybrid search (this pipeline) |
+|---|---|---|---|
+| Hard constraints (price, brand, color) | ✅ | ❌ | ✅ |
+| Semantic intent ("good for travel") | ❌ | ✅ | ✅ |
+| Ranked results by relevance | ❌ | ✅ | ✅ |
+| Works on unstructured descriptions | ❌ | ✅ | ✅ |
+| Respects exclusions ("not black") | ✅ | ❌ | ✅ |
+| Price is a hard cutoff, not a soft signal | ✅ | ❌ | ✅ |
+
+Text-to-SQL is a **lookup tool** — it returns rows that match, but can't rank by relevance or understand semantics.  
+Pure vector search is a **semantic tool** — it understands meaning, but treats "$200" as a soft hint, not a hard rule. A $350 product can rank above a $180 one if its description is more similar to the query.  
+This pipeline is a **retrieval tool** — structured filters enforce the hard constraints first, then vector search ranks the surviving candidates by semantic relevance.
+
+In production, we generally use a version of this pattern:  
+**structured pre-filtering → ANN (approximate nearest neighbour) vector search → learning-to-rank re-ranker**.
+
+search-expert makes step 1 trivial with a tiny, fast, locally-runnable model.
+
+<br/>
+
 ## Operator reference
 
 All numeric and exclusion constraints use a consistent prefix so downstream filters need zero NLP — just parse the string.
@@ -111,7 +133,7 @@ filtered = [l for l in listings if l["price"] < salary["value"]]
 
 <br/>
 
-## Supported domains
+## Domains present in the training data
 
 | Domain | Example query |
 |---|---|
@@ -131,7 +153,7 @@ filtered = [l for l in listings if l["price"] < salary["value"]]
 
 ## The model
 
-Each adapter is a LoRA fine-tune of **[Qwen3.5-0.8B](https://huggingface.co/Qwen/Qwen3.5-0.8B)** trained on ~1 million (query, structured output) pairs spanning all 10 domains above.
+Each adapter is a LoRA fine-tune of **[Qwen3.5-0.8B](https://huggingface.co/Qwen/Qwen3.5-0.8B)** trained on 100,000 (query, structured output) pairs spanning all 10 domains above.
 
 | Adapter | HuggingFace | Format |
 |---|---|---|

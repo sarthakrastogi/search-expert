@@ -19,6 +19,7 @@ from search_expert.config import ModelFormat, build_inference_prompt, get_system
 from search_expert.exceptions import ParseError
 from search_expert.parser import parse_model_output
 from search_expert.result import ParseResult
+from search_expert import SearchExpert, ModelFormat
 
 
 # ── Fixtures ──────────────────────────────────────────────────
@@ -190,14 +191,10 @@ SKIP_MODEL = not os.environ.get("SEARCH_EXPERT_RUN_MODEL_TESTS")
 class TestSearchExpertIntegration:
     @pytest.fixture(scope="class")
     def expert_json(self):
-        from search_expert import SearchExpert, ModelFormat
-
         return SearchExpert(fmt=ModelFormat.JSON, eager=True)
 
     @pytest.fixture(scope="class")
     def expert_yaml(self):
-        from search_expert import SearchExpert, ModelFormat
-
         return SearchExpert(fmt=ModelFormat.YAML, eager=True)
 
     def test_json_parse_returns_result(self, expert_json):

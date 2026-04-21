@@ -49,8 +49,8 @@ import time
 
 import torch
 from datasets import load_dataset
-from trl import SFTConfig, SFTTrainer
 from unsloth import FastLanguageModel
+from trl import SFTConfig, SFTTrainer
 
 from prompts import FORMAT_LABELS, make_training_prompt
 

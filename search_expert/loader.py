@@ -14,6 +14,7 @@ from __future__ import annotations
 import logging
 from enum import Enum
 from typing import Any
+from unsloth import FastLanguageModel
 
 from search_expert.config import BASE_MODEL_ID, DEFAULT_MODEL_IDS, ModelFormat
 from search_expert.exceptions import ModelLoadError
@@ -29,7 +30,6 @@ class Backend(str, Enum):
 
 
 def _try_unsloth(model_id: str, load_in_4bit: bool) -> tuple[Any, Any]:
-    from unsloth import FastLanguageModel  # type: ignore
 
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name=model_id,
