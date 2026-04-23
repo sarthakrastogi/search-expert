@@ -175,13 +175,14 @@ def main():
         from google.colab import userdata
 
         hf_token = userdata.get("HF_TOKEN")
+        print("TOKEN", hf_token)
     except Exception:
         import os
 
         hf_token = os.environ.get("HF_TOKEN", "")
 
     print("Loading dataset...")
-    raw_train = load_dataset(DATASET_REPO, split="train")
+    raw_train = load_dataset(DATASET_REPO, split="train", token=hf_token)
     print(f"  Train: {len(raw_train):,} rows")
 
     for i, fmt in enumerate(ALL_FORMATS):

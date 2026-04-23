@@ -20,6 +20,8 @@ htmlcov/
 dataset_generation
 .DS_Store
 *.log
+*.json
+data.ipynb
 
 # Model weights
 *.bin
