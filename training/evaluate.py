@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 evaluate.py — Evaluate fine-tuned LoRA adapters + benchmark vs. pure vector search
 ====================================================================================
@@ -64,9 +63,8 @@ import xml.etree.ElementTree as ET
 import torch
 import yaml
 from datasets import load_dataset
-from unsloth import FastLanguageModel
-
 from prompts import FORMAT_LABELS, make_inference_prompt
+from unsloth import FastLanguageModel
 
 # ──────────────────────────────────────────────────────────────
 # FORMAT PARSERS

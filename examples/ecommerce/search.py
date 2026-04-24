@@ -17,12 +17,14 @@ search.py  —  hybrid search pipeline:
 """
 
 from __future__ import annotations
+
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any
 
 import chromadb
 from chromadb.utils import embedding_functions
+
 from search_expert import SearchExpert
 
 COLLECTION_NAME = "ecommerce_products"
@@ -233,7 +235,7 @@ if __name__ == "__main__":
     for q in queries:
         results = hybrid_search(q, n_results=3)
         print(f"\n{'─'*70}")
-        print(f"Top results:")
+        print("Top results:")
         for r in results:
             print(f"  {r}")
         print()

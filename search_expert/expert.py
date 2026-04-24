@@ -22,13 +22,12 @@ Usage
 from __future__ import annotations
 
 import logging
-from typing import Any
+from typing import Any, ClassVar
 
 from search_expert.config import (
     ModelFormat,
     build_inference_prompt,
 )
-from search_expert.exceptions import ParseError
 from search_expert.loader import Backend, load_model
 from search_expert.parser import parse_model_output
 from search_expert.result import ParseResult
@@ -63,7 +62,7 @@ class SearchExpert:
         Otherwise the model is loaded on the first :meth:`parse` call.
     """
 
-    _DEFAULT_GENERATION: dict[str, Any] = {
+    _DEFAULT_GENERATION: ClassVar[dict[str, Any]] = {
         "max_new_tokens": 256,
         "temperature": 0.1,
         "do_sample": True,

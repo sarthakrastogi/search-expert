@@ -12,14 +12,18 @@ from __future__ import annotations
 
 import json
 import os
+
 import pytest
 import yaml
 
-from search_expert.config import ModelFormat, build_inference_prompt, get_system_prompt
+from search_expert.config import (
+    ModelFormat,
+    build_inference_prompt,
+    get_system_prompt,
+)
 from search_expert.exceptions import ParseError
 from search_expert.parser import parse_model_output
 from search_expert.result import ParseResult
-
 
 # ── Fixtures ──────────────────────────────────────────────────
 
@@ -190,13 +194,13 @@ SKIP_MODEL = not os.environ.get("SEARCH_EXPERT_RUN_MODEL_TESTS")
 class TestSearchExpertIntegration:
     @pytest.fixture(scope="class")
     def expert_json(self):
-        from search_expert import SearchExpert, ModelFormat
+        from search_expert import ModelFormat, SearchExpert
 
         return SearchExpert(fmt=ModelFormat.JSON, eager=True)
 
     @pytest.fixture(scope="class")
     def expert_yaml(self):
-        from search_expert import SearchExpert, ModelFormat
+        from search_expert import ModelFormat, SearchExpert
 
         return SearchExpert(fmt=ModelFormat.YAML, eager=True)
 

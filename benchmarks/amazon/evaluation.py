@@ -41,6 +41,7 @@ from typing import Any
 try:
     import chromadb
     from chromadb.utils import embedding_functions
+
     from search_expert import SearchExpert
 
     PIPELINE_AVAILABLE = True

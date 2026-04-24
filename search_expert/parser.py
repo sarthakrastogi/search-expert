@@ -16,7 +16,6 @@ import yaml
 from search_expert.config import ModelFormat
 from search_expert.exceptions import ParseError
 
-
 # ── JSON ──────────────────────────────────────────────────────────────
 
 

@@ -12,15 +12,15 @@ from __future__ import annotations
 
 import json
 import os
+
 import pytest
 import yaml
 
-from search_expert.config import ModelFormat, build_inference_prompt, get_system_prompt
+from search_expert import ModelFormat, SearchExpert
+from search_expert.config import build_inference_prompt, get_system_prompt
 from search_expert.exceptions import ParseError
 from search_expert.parser import parse_model_output
 from search_expert.result import ParseResult
-from search_expert import SearchExpert, ModelFormat
-
 
 # ── Fixtures ──────────────────────────────────────────────────
 

@@ -14,6 +14,7 @@ from __future__ import annotations
 import logging
 from enum import Enum
 from typing import Any
+
 from unsloth import FastLanguageModel
 
 from search_expert.config import BASE_MODEL_ID, DEFAULT_MODEL_IDS, ModelFormat
