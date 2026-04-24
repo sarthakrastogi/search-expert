@@ -174,6 +174,39 @@ Both public adapters return the same Python dict — the format only affects the
 
 <br/>
 
+## Benchmarking against Amazon's search
+
+I evaluated search-expert's hybrid pipeline against Amazon's native search
+and pure vector search on 25 complex, multi-constraint ecommerce queries
+(e.g. *"Sony noise cancelling headphones, not black, under $250"*).
+
+Each pipeline's top-6 results were scored on whether they actually satisfied
+the hard constraints in the query — price limits, color exclusions, and color
+requirements. No relevance proxies; just "did the result follow the rules?"
+
+| Metric | Amazon | Pure Vector | **Hybrid (search-expert)** |
+|---|---|---|---|
+| Price satisfaction | 0.95 | 0.76 | **1.00** |
+| Color exclusion | 0.66 | 0.78 | **1.00** |
+| Color match | 0.62 | 0.47 | **1.00** |
+| Overall (all constraints) | 0.76 | 0.56 | **1.00** |
+| Perfect@6 (all 6 correct) | 0.42 | 0.21 | **1.00** |
+
+**Perfect@6** is the strictest metric: 1.0 only if every result in the top 6
+satisfies every constraint simultaneously.
+
+The hybrid pipeline scores 1.0 across the board. Amazon's search respects
+price constraints reasonably well but frequently returns wrong-colored results
+(only 62% color match on average). Pure vector search is the weakest on color
+— it understands *what kind of thing* you want, but treats "not black" as a
+soft suggestion rather than a hard rule.
+
+Full benchmark code and dataset:
+[`benchmarks/amazon/`](benchmarks/amazon/) ·
+[Dataset on HuggingFace](https://huggingface.co/datasets/sarthakrastogi/amazon-search-dataset)
+
+<br/>
+
 ## Repo structure
 
 ```
