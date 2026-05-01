@@ -207,6 +207,24 @@ Full benchmark code and dataset:
 
 <br/>
 
+## Comparison: Why not just use spaCy/NER instead?
+
+| Capability | Description | spaCy / NER | search-expert |
+|---|---|---|---|
+| Named entity extraction | Pulls out cities, brands, product names, job titles from free text | ✅ good | ✅ |
+| Numeric value extraction | Detects numbers like `$200`, `5 stars`, `2 bedrooms` | ✅ good | ✅ |
+| Comparison operator inference | Maps phrases like "under", "at least", "starting from" to `lt:` / `gte:` operators | ⚠️ partial, brittle rules | ✅ |
+| Range constraints | Understands "between $100 and $300" or "$100–$300" as `between:100:300` | ⚠️ regex only | ✅ |
+| Approximation operator | Maps "around $200", "roughly $200", "~$200" to `approx:200` | ❌ | ✅ |
+| Exclusion constraints | Maps "any colour but red or green" to `["ne:red", "ne:green"]` | ❌ needs custom logic | ✅ |
+| Multi-domain field assignment | Correctly assigns "noise cancelling" to `feature` vs. a brand or city depending on domain | ❌ explodes in rules | ✅ |
+| Novel phrasing generalisation | Handles phrasings not seen during development without rule updates | ❌ misses anything not in rules | ✅ generalises |
+| Inference speed | Time to parse one query | ✅ ~1 ms (CPU) | ⚠️ ~400 ms (GPU) / ~3 s (CPU) |
+| GPU requirement | Whether a GPU is needed for production-speed inference | ✅ none | ⚠️ optional |
+| Maintenance cost | Effort required to extend coverage to new domains, fields, or phrasings | ❌ high — rules accumulate and conflict | ✅ low — add training data |
+
+<br/>
+
 ## Repo structure
 
 ```
