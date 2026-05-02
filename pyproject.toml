@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "search-expert"
-version = "0.1.1"
+version = "0.1.2"
 description = "Parse natural language search queries into structured fields using fine-tuned Qwen3.5-0.8B LoRA adapters."
 readme = "README.md"
 license = { text = "MIT" }
@@ -29,7 +29,7 @@ dependencies = [
     "pyyaml>=6.0",
     "huggingface-hub>=0.22",
     "unsloth>=2026.4",
-    
+    "spacy>=3.7",
 ]
 
 [project.optional-dependencies]

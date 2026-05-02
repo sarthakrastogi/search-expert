@@ -1,5 +1,6 @@
 """
-Configuration: model identifiers, supported formats, and prompt templates.
+Configuration: model identifiers, supported formats, prompt templates,
+and backend selection.
 """
 
 from enum import Enum
@@ -14,6 +15,20 @@ class ModelFormat(str, Enum):
 
     JSON = "json"
     YAML = "yaml"
+
+
+class ParseBackend(str, Enum):
+    """
+    Which extraction backend to use.
+
+    SLM   — fine-tuned LoRA adapter (Qwen3.5-0.8B).
+            Best quality; requires a GPU for production-speed inference.
+    SPACY — rule-based spaCy NER + regex.
+            ~1 ms/query on CPU; no GPU required; less generalisable.
+    """
+
+    SLM = "slm"
+    SPACY = "spacy"
 
 
 # HuggingFace repo IDs for each adapter.

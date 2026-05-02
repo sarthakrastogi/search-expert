@@ -22,6 +22,8 @@ dataset_generation
 *.log
 *.json
 data.ipynb
+finetune.py
+spacy_test.ipynb
 
 # Model weights
 *.bin

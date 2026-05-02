@@ -18,7 +18,7 @@ from search_expert.exceptions import ModelLoadError, ParseError, SearchExpertErr
 from search_expert.expert import SearchExpert
 from search_expert.result import ParseResult
 
-__version__ = "0.1.0"
+__version__ = "0.1.2"
 __author__ = "Sarthak Rastogi"
 __all__ = [
     "DEFAULT_MODEL_IDS",
